@@ -1,6 +1,6 @@
-# D Keeper
+# Decentralised Token
 
-Welcome to your new d_keeper project and to the internet computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+Welcome to your new Decentralised Token project and to the internet computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
 
 NOTE: This project uses dfx or Difinity so you might want to download that if you are trying to run the app.
 
@@ -8,7 +8,7 @@ NOTE: Deploying on Internet Computer requires me to spend ICP Tokens to get comp
 
 To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
 
-To learn more before you start working with d_keeper, see the following documentation available online:
+To learn more before you start working with token, see the following documentation available online:
 
 - [Quick Start](https://sdk.dfinity.org/docs/quickstart/quickstart-intro.html)
 - [SDK Developer Tools](https://sdk.dfinity.org/docs/developers-guide/sdk-guide.html)
@@ -19,7 +19,7 @@ To learn more before you start working with d_keeper, see the following document
 If you want to start working on your project right away, you might want to try the following commands:
 
 ```bash
-cd d_keeper/
+cd token/
 dfx help
 dfx config --help
 ```
@@ -45,6 +45,31 @@ npm start
 ```
 
 Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 8000.
+
+### Claim button
+
+To make the claim button work, we need to add in some amount to canister since the function calls from frontend would have the id of the canister instead of the owner.Hence I added the tokens to the canister. So here's what you need to do in the terminal...
+
+1. Check canister ID:
+```
+dfx canister id token
+```
+
+2. Save canister ID into a command line variable:
+```
+CANISTER_PUBLIC_KEY="principal \"$( \dfx canister id token )\""
+```
+
+3. Check canister ID has been successfully saved:
+```
+echo $CANISTER_PUBLIC_KEY
+```
+
+4. Transfer half a billion tokens to the canister Principal ID:
+```
+dfx canister call token transfer "($CANISTER_PUBLIC_KEY, 500_000_000)"
+```
+
 
 ### Note on frontend environment variables
 
